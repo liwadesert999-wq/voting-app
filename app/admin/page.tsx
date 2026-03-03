@@ -46,20 +46,33 @@ const statusVariant: Record<string, "default" | "secondary" | "destructive" | "o
 export default function AdminDashboard() {
   const [sessions, setSessions] = useState<Session[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [newName, setNewName] = useState("");
   const [newMaxVotes, setNewMaxVotes] = useState(1);
   const [dialogOpen, setDialogOpen] = useState(false);
   const router = useRouter();
 
   async function fetchSessions() {
-    const res = await fetch("/api/admin/sessions");
-    if (res.status === 401) {
-      router.push("/admin/login");
-      return;
+    try {
+      const res = await fetch("/api/admin/sessions");
+      if (res.status === 401) {
+        router.push("/admin/login");
+        return;
+      }
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || `서버 오류 (${res.status})`);
+        setLoading(false);
+        return;
+      }
+      const data = await res.json();
+      setSessions(data);
+      setError("");
+    } catch (e) {
+      setError("서버에 연결할 수 없습니다.");
+    } finally {
+      setLoading(false);
     }
-    const data = await res.json();
-    setSessions(data);
-    setLoading(false);
   }
 
   useEffect(() => {
@@ -100,6 +113,22 @@ export default function AdminDashboard() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p className="text-gray-500">로딩 중...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Card className="w-full max-w-md text-center shadow-lg">
+          <CardContent className="py-12">
+            <h2 className="text-xl font-bold text-gray-700 mb-2">오류 발생</h2>
+            <p className="text-gray-500 mb-4">{error}</p>
+            <Button onClick={() => { setLoading(true); setError(""); fetchSessions(); }}>
+              다시 시도
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     );
   }

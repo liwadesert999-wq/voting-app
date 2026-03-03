@@ -87,20 +87,25 @@ export default function SessionDetailPage({
   const voteUrl = `${baseUrl}/vote/${id}`;
 
   async function fetchSession() {
-    const res = await fetch(`/api/admin/sessions/${id}`);
-    if (res.status === 401) {
-      router.push("/admin/login");
-      return;
-    }
-    if (!res.ok) {
+    try {
+      const res = await fetch(`/api/admin/sessions/${id}`);
+      if (res.status === 401) {
+        router.push("/admin/login");
+        return;
+      }
+      if (!res.ok) {
+        router.push("/admin");
+        return;
+      }
+      const data = await res.json();
+      setSession(data);
+      setSessionCandidates(data.candidates || []);
+      setMaxVotesEdit(data.maxVotes);
+    } catch {
       router.push("/admin");
-      return;
+    } finally {
+      setLoading(false);
     }
-    const data = await res.json();
-    setSession(data);
-    setSessionCandidates(data.candidates || []);
-    setMaxVotesEdit(data.maxVotes);
-    setLoading(false);
   }
 
   async function generateQR() {

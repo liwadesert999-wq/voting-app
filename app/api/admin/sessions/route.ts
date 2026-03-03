@@ -10,21 +10,28 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  try {
+    const sessions = await db
+      .select({
+        id: votingSessions.id,
+        name: votingSessions.name,
+        maxVotes: votingSessions.maxVotes,
+        status: votingSessions.status,
+        createdAt: votingSessions.createdAt,
+        candidateCount: sql<number>`(SELECT COUNT(*) FROM candidates WHERE session_id = ${votingSessions.id})`,
+        voteCount: sql<number>`(SELECT COUNT(*) FROM votes WHERE session_id = ${votingSessions.id})`,
+      })
+      .from(votingSessions)
+      .orderBy(desc(votingSessions.createdAt));
 
-  const sessions = await db
-    .select({
-      id: votingSessions.id,
-      name: votingSessions.name,
-      maxVotes: votingSessions.maxVotes,
-      status: votingSessions.status,
-      createdAt: votingSessions.createdAt,
-      candidateCount: sql<number>`(SELECT COUNT(*) FROM candidates WHERE session_id = ${votingSessions.id})`,
-      voteCount: sql<number>`(SELECT COUNT(*) FROM votes WHERE session_id = ${votingSessions.id})`,
-    })
-    .from(votingSessions)
-    .orderBy(desc(votingSessions.createdAt));
-
-  return NextResponse.json(sessions);
+    return NextResponse.json(sessions);
+  } catch (e) {
+    console.error("DB error in GET /api/admin/sessions:", e);
+    return NextResponse.json(
+      { error: "데이터베이스 연결 오류가 발생했습니다." },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(request: NextRequest) {
