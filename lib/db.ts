@@ -4,9 +4,21 @@ import * as schema from "./schema";
 
 let _db: PostgresJsDatabase<typeof schema> | null = null;
 
+function getDatabaseUrl(): string {
+  const url =
+    process.env.DATABASE_URL ||
+    process.env.POSTGRES_URL ||
+    process.env.POSTGRES_URL_NON_POOLING ||
+    process.env.SUPABASE_DB_URL;
+  if (!url) {
+    throw new Error("DATABASE_URL 환경변수가 설정되지 않았습니다.");
+  }
+  return url;
+}
+
 function getDb() {
   if (!_db) {
-    const client = postgres(process.env.DATABASE_URL!, { prepare: false });
+    const client = postgres(getDatabaseUrl(), { prepare: false });
     _db = drizzle(client, { schema });
   }
   return _db;
