@@ -1,10 +1,10 @@
 // Run with: npx tsx lib/migrate.ts
-// Creates all tables in the Neon PostgreSQL database
+// Creates all tables in the PostgreSQL database (Supabase/Neon/etc)
 
-import { neon } from "@neondatabase/serverless";
+import postgres from "postgres";
 import "dotenv/config";
 
-const sql = neon(process.env.DATABASE_URL!);
+const sql = postgres(process.env.DATABASE_URL!);
 
 async function migrate() {
   console.log("Creating tables...");
@@ -49,6 +49,7 @@ async function migrate() {
   `;
 
   console.log("All tables created successfully!");
+  await sql.end();
 }
 
 migrate().catch(console.error);
