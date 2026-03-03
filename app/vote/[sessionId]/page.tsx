@@ -125,7 +125,7 @@ export default function VotePage({
   // Loading
   if (state === "loading") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#004191]/5 to-white">
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <p className="text-[#004191]/60 text-lg">로딩 중...</p>
       </div>
     );
@@ -134,7 +134,7 @@ export default function VotePage({
   // Already voted
   if (state === "already") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#004191]/5 to-white px-4">
+      <div className="min-h-screen flex items-center justify-center bg-white px-4">
         <Card className="w-full max-w-md text-center shadow-lg">
           <CardContent className="py-12">
             <div className="w-16 h-16 rounded-full bg-[#004191]/10 flex items-center justify-center mx-auto mb-4">
@@ -151,7 +151,7 @@ export default function VotePage({
   // Closed
   if (state === "closed") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#004191]/5 to-white px-4">
+      <div className="min-h-screen flex items-center justify-center bg-white px-4">
         <Card className="w-full max-w-md text-center shadow-lg">
           <CardContent className="py-12">
             <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
@@ -172,7 +172,7 @@ export default function VotePage({
   // Error
   if (state === "error") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#004191]/5 to-white px-4">
+      <div className="min-h-screen flex items-center justify-center bg-white px-4">
         <Card className="w-full max-w-md text-center shadow-lg">
           <CardContent className="py-12">
             <div className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4">
@@ -189,7 +189,7 @@ export default function VotePage({
   // Vote complete
   if (state === "done") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#004191]/5 to-white px-4">
+      <div className="min-h-screen flex items-center justify-center bg-white px-4">
         <Card className="w-full max-w-md text-center shadow-lg">
           <CardContent className="py-12">
             <div className="w-16 h-16 rounded-full bg-[#004191]/10 flex items-center justify-center mx-auto mb-4">
@@ -207,7 +207,7 @@ export default function VotePage({
   if (state === "confirm") {
     const selectedCandidates = candidates.filter((c) => selected.has(c.id));
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#004191]/5 to-white px-4 py-6">
+      <div className="min-h-screen bg-white px-4 py-6">
         <div className="max-w-lg mx-auto">
           <h1 className="text-xl font-bold text-center text-[#004191] mb-2">{session?.name}</h1>
           <p className="text-center text-gray-500 mb-6">선택을 확인해주세요</p>
@@ -255,7 +255,7 @@ export default function VotePage({
 
   // Voting screen
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#004191]/5 to-white px-4 py-6">
+    <div className="min-h-screen bg-white px-4 py-6">
       <div className="max-w-lg mx-auto">
         <h1 className="text-xl font-bold text-center text-[#004191] mb-1">{session?.name}</h1>
         <p className="text-center text-gray-500 mb-6">

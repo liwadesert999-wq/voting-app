@@ -207,7 +207,7 @@ export default function SessionDetailPage({
     })) || [];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <header className="bg-[#004191] text-white px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Button variant="outline" className="text-white border-white/50 hover:bg-white/10 hover:text-white" onClick={() => router.push("/admin")}>

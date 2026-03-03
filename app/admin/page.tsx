@@ -105,7 +105,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <header className="bg-[#004191] text-white px-6 py-4 flex items-center justify-between">
         <h1 className="text-xl font-bold">투표 관리자</h1>
         <div className="flex gap-2">
