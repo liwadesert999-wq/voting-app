@@ -38,10 +38,14 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <Card className="w-full max-w-md">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#004191] to-[#002a5c]">
+      <div className="mb-8 text-center">
+        <h1 className="text-3xl font-bold text-white">투표 시스템</h1>
+        <p className="text-blue-200 mt-1">Voting System</p>
+      </div>
+      <Card className="w-full max-w-md shadow-xl">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">관리자 로그인</CardTitle>
+          <CardTitle className="text-2xl text-[#004191]">관리자 로그인</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -57,7 +61,7 @@ export default function AdminLoginPage() {
             {error && (
               <p className="text-sm text-red-500 text-center">{error}</p>
             )}
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="w-full bg-[#004191] hover:bg-[#003070]" disabled={loading}>
               {loading ? "로그인 중..." : "로그인"}
             </Button>
           </form>

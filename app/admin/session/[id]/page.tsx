@@ -61,8 +61,8 @@ const statusLabel: Record<string, string> = {
 };
 
 const COLORS = [
-  "#3b82f6", "#ef4444", "#10b981", "#f59e0b", "#8b5cf6",
-  "#ec4899", "#06b6d4", "#84cc16", "#f97316", "#6366f1",
+  "#004191", "#0062B8", "#0080D0", "#339FDB", "#66B8E5",
+  "#0050A0", "#1A6FB5", "#3388C8", "#4DA0D8", "#80C0E8",
 ];
 
 export default function SessionDetailPage({
@@ -108,7 +108,7 @@ export default function SessionDetailPage({
       const url = await QRCode.toDataURL(voteUrl, {
         width: 300,
         margin: 2,
-        color: { dark: "#000000", light: "#ffffff" },
+        color: { dark: "#004191", light: "#ffffff" },
       });
       setQrDataUrl(url);
     } catch (err) {
@@ -208,9 +208,9 @@ export default function SessionDetailPage({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b px-6 py-4 flex items-center justify-between">
+      <header className="bg-[#004191] text-white px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Button variant="outline" onClick={() => router.push("/admin")}>
+          <Button variant="outline" className="text-white border-white/50 hover:bg-white/10 hover:text-white" onClick={() => router.push("/admin")}>
             ← 목록
           </Button>
           <h1 className="text-xl font-bold">{session.name}</h1>
