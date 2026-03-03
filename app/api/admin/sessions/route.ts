@@ -18,8 +18,8 @@ export async function GET() {
         maxVotes: votingSessions.maxVotes,
         status: votingSessions.status,
         createdAt: votingSessions.createdAt,
-        candidateCount: sql<number>`(SELECT COUNT(*) FROM candidates WHERE session_id = ${votingSessions.id})`,
-        voteCount: sql<number>`(SELECT COUNT(*) FROM votes WHERE session_id = ${votingSessions.id})`,
+        candidateCount: sql<number>`(SELECT COUNT(*) FROM candidates WHERE candidates.session_id = voting_sessions.id)`,
+        voteCount: sql<number>`(SELECT COUNT(*) FROM votes WHERE votes.session_id = voting_sessions.id)`,
       })
       .from(votingSessions)
       .orderBy(desc(votingSessions.createdAt));

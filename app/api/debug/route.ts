@@ -12,8 +12,8 @@ export async function GET() {
         maxVotes: votingSessions.maxVotes,
         status: votingSessions.status,
         createdAt: votingSessions.createdAt,
-        candidateCount: sql<number>`(SELECT COUNT(*) FROM candidates WHERE session_id = ${votingSessions.id})`,
-        voteCount: sql<number>`(SELECT COUNT(*) FROM votes WHERE session_id = ${votingSessions.id})`,
+        candidateCount: sql<number>`(SELECT COUNT(*) FROM candidates WHERE candidates.session_id = voting_sessions.id)`,
+        voteCount: sql<number>`(SELECT COUNT(*) FROM votes WHERE votes.session_id = voting_sessions.id)`,
       })
       .from(votingSessions)
       .orderBy(desc(votingSessions.createdAt));
@@ -21,7 +21,6 @@ export async function GET() {
     return NextResponse.json({ status: "ok", sessions });
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e);
-    const stack = e instanceof Error ? e.stack : undefined;
-    return NextResponse.json({ status: "error", error: msg, stack });
+    return NextResponse.json({ status: "error", error: msg });
   }
 }
